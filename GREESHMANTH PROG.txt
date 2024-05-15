@@ -1,0 +1,132 @@
+CREATE DATABASE CharityDB;
+
+
+USE CharityDB;
+
+
+CREATE TABLE Donor (
+    Donor_ID INT PRIMARY KEY AUTO_INCREMENT,
+    D_name VARCHAR(255),
+    D_phone VARCHAR(20),
+    Location VARCHAR(255)
+);
+
+
+CREATE TABLE Donation (
+    D_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Donor_ID INT,
+    D_type VARCHAR(100),
+    FOREIGN KEY (Donor_ID) REFERENCES Donor(Donor_ID)
+);
+
+CREATE TABLE Donation_Items (
+    I_ID INT PRIMARY KEY AUTO_INCREMENT,
+    D_ID INT,
+    I_name VARCHAR(255),
+    total INT,
+    FOREIGN KEY (D_ID) REFERENCES Donation(D_ID)
+);
+
+
+CREATE TABLE Volunteer (
+    Volunteer_ID INT PRIMARY KEY AUTO_INCREMENT,
+    V_name VARCHAR(255),
+    V_phone VARCHAR(20),
+    V_password VARCHAR(255),
+    Location VARCHAR(255)
+);
+
+CREATE TABLE Needy_People (
+    Needy_ID INT PRIMARY KEY AUTO_INCREMENT,
+    N_name VARCHAR(255),
+    N_Phone VARCHAR(20),
+    Location VARCHAR(255),
+    Volunteer_ID INT,
+    I_ID INT,
+    FOREIGN KEY (Volunteer_ID) REFERENCES Volunteer(Volunteer_ID),
+    FOREIGN KEY (I_ID) REFERENCES Donation_Items(I_ID)
+);
+
+
+CREATE TABLE Admin (
+    Admin_ID INT PRIMARY KEY AUTO_INCREMENT,
+    A_username VARCHAR(255),
+    A_password VARCHAR(255)
+);
+
+
+INSERT INTO Donor (D_name, D_phone, Location) VALUES
+('John Doe', '1234567890', 'New York'),
+('Jane Smith', '0987654321', 'Los Angeles'),
+('Alice Johnson', '5556667777', 'Chicago'),
+('Bob Anderson', '7778889999', 'Houston'),
+('Eva Martinez', '3334445555', 'Miami'),
+('David Lee', '9998887777', 'San Francisco'),
+('Sarah Taylor', '2223334444', 'Seattle'),
+('Michael Brown', '7777777777', 'Boston'),
+('Emily Wilson', '8888888888', 'Atlanta'),
+('Chris Evans', '6665554444', 'Dallas');
+
+
+INSERT INTO Donation (Donor_ID, D_type) VALUES
+(1, 'Money'),
+(2, 'Food'),
+(3, 'Clothing'),
+(4, 'Money'),
+(5, 'Food'),
+(6, 'Toys'),
+(7, 'Money'),
+(8, 'Food'),
+(9, 'Clothing'),
+(10, 'Money');
+
+
+INSERT INTO Donation_Items (D_ID, I_name, total) VALUES
+(1, 'Cash', 500),
+(2, 'Canned Food', 100),
+(3, 'Shirts', 50),
+(4, 'Cash', 700),
+(5, 'Groceries', 150),
+(6, 'Dolls', 20),
+(7, 'Cash', 300),
+(8, 'Fresh Produce', 200),
+(9, 'Jackets', 30),
+(10, 'Cash', 1000);
+
+
+INSERT INTO Volunteer (V_name, V_phone, V_password, Location) VALUES
+('Volunteer1', '1111111111', 'password1', 'New York'),
+('Volunteer2', '2222222222', 'password2', 'Los Angeles'),
+('Volunteer3', '3333333333', 'password3', 'Chicago'),
+('Volunteer4', '4444444444', 'password4', 'Houston'),
+('Volunteer5', '5555555555', 'password5', 'Miami'),
+('Volunteer6', '6666666666', 'password6', 'San Francisco'),
+('Volunteer7', '7777777777', 'password7', 'Seattle'),
+('Volunteer8', '8888888888', 'password8', 'Boston'),
+('Volunteer9', '9999999999', 'password9', 'Atlanta'),
+('Volunteer10', '1010101010', 'password10', 'Dallas');  
+                                                                                                                                                                            
+INSERT INTO Needy_People (N_name, N_Phone, Location, Volunteer_ID, I_ID) VALUES
+('Needy1', '9999999999', 'New York', 1, 1),
+('Needy2', '8888888888', 'Los Angeles', 2, 2),
+('Needy3', '7777777777', 'Chicago', 3, 3),
+('Needy4', '6666666666', 'Houston', 4, 4),
+('Needy5', '5555555555', 'Miami', 5, 5),
+('Needy6', '4444444444', 'San Francisco', 6, 6),
+('Needy7', '3333333333', 'Seattle', 7, 7),
+('Needy8', '2222222222', 'Boston', 8, 8),
+('Needy9', '1111111111', 'Atlanta', 9, 9),
+('Needy10', '1010101010', 'Dallas', 10, 10);
+
+
+INSERT INTO Admin (A_username, A_password) VALUES
+('admin1', 'adminpassword1'),
+('admin2', 'adminpassword2'),
+('admin3', 'adminpassword3'),
+('admin4', 'adminpassword4'),
+('admin5', 'adminpassword5'),
+('admin6', 'adminpassword6'),
+('admin7', 'adminpassword7'),
+('admin8', 'adminpassword8'),
+('admin9', 'adminpassword9'),
+('admin10', 'adminpassword10');
